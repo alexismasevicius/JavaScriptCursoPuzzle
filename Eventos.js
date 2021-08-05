@@ -27,13 +27,27 @@ const paintSquare = (event) => {
   //console.log(event.target.id);
 };
 
+const paintSquareOnMove = (event) => {
+  if (event.buttons !== 1) return;
+  paintSquare(event);
+};
+
+const resetter = () => {
+  gridSquares.forEach((square) => (square.className = "cell"));
+};
+
 const colorSquares = document.querySelectorAll(".color");
 
 colorSquares.forEach((square) => square.addEventListener("click", selectColor));
 
-const gridSquares = document.querySelectorAll(".grid");
+const gridSquares = document.querySelectorAll(".cell");
 
 gridSquares.forEach((square) => square.addEventListener("click", paintSquare));
 
-//gridSquares.forEach((square) => {
-//  square.addEventListener("mousemove", paintSquare)};
+gridSquares.forEach((square) => {
+  square.addEventListener("mousemove", paintSquareOnMove);
+});
+
+const resetButton = document.getElementById("reset");
+
+resetButton.addEventListener("click", resetter);
